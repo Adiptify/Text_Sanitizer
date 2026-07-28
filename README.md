@@ -119,19 +119,6 @@ curl -X POST http://localhost:3000/api/clean \
 
 ---
 
-## ☁️ Deploying to Vercel
-
-This application is built for seamless 1-click deployment on Vercel.
-
-1. Push your code to GitHub:
-   ```bash
-   git push -u origin main
-   ```
-2. Go to **[Vercel Dashboard](https://vercel.com/new)** and import `Adiptify/Text_Sanitizer`.
-3. Select **Next.js** as the framework preset.
-4. Click **Deploy**.
-
-No database configuration or environment variables required!
 
 ---
 
