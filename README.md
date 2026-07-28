@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛡️ Text Sanitizer — AI Response & Text Formatting Cleaner
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38BDF8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Vercel Ready](https://img.shields.io/badge/Vercel-Deployed-000000?style=flat-square&logo=vercel)](https://vercel.com)
+[![License](https://img.shields.io/badge/License-MIT-emerald?style=flat-square)](LICENSE)
 
-First, run the development server:
+**Text Sanitizer** is a modern, high-performance web application designed to automatically strip AI disclaimers, boilerplate intro/outro phrases, markdown syntax, duplicate sentences, emojis, and custom forbidden phrases from raw text while preserving the core meaning.
+
+Featuring a **Glassmorphism UI** with ambient **Green & Blue gradient meshes**, instant client-side execution, and a headless REST API.
+
+---
+
+## ✨ Features
+
+- **⚡ Zero-Latency Client-Side Cleaning:** Instant text sanitization running synchronously in the browser with real-time stats.
+- **🏷️ Smart Word-Sequence Custom Phrase Filter:** Add any phrase or boilerplate text to remove. The engine automatically matches the word sequence across line breaks, case variations, punctuation, and markdown symbols.
+- **🎨 Glassmorphism & Green-Blue Aesthetic:** Premium frosted glass panels (`backdrop-blur-xl`), translucent borders, and ambient emerald/cyan glowing background mesh.
+- **📑 1-Click Preset Profiles:**
+  - **All Active:** Complete sanitization (Markdown, Boilerplate, Duplicates, Emojis, Custom Phrases).
+  - **AI Only:** Focuses strictly on removing AI intro disclaimers and concluding policy boilerplate.
+  - **Markdown Only:** Strips headers, bold/italics, lists, and code blocks while keeping raw text intact.
+  - **Minimal:** Lightweight cleanup (spaces and blank line collapse).
+- **📊 Real-Time Metrics Dashboard:**
+  - Cleaned vs. original word and character counts.
+  - Reduction percentage & character count saved.
+  - Processing speed in milliseconds.
+  - Estimated reading time saved.
+- **🔍 Side-by-Side Diff Mode:** Easily compare raw input against the sanitized output line-by-line.
+- **🌓 Seamless Dark & Light Mode:** Fully responsive theme switching with high-contrast accessibility.
+- **🚀 Headless REST API (`/api/clean`):** Integrate the sanitization engine programmatically into scripts, web apps, or backend pipelines.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **UI Library:** [React 19](https://react.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) + Custom Glassmorphism CSS
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Deployment:** Optimized for [Vercel](https://vercel.com)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js:** v18.0.0 or higher
+- **npm** / **yarn** / **pnpm**
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Adiptify/Text_Sanitizer.git
+   cd Text_Sanitizer
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🌐 REST API Usage
+
+You can send text sanitization requests directly to the headless REST API endpoint at `/api/clean`.
+
+### Request Example (`POST /api/clean`)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+curl -X POST http://localhost:3000/api/clean \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "As an AI language model, ### Hello World! 🚀",
+    "rules": {
+      "markdown": true,
+      "aiBoilerplate": true,
+      "emojis": true,
+      "customPhrases": true
+    },
+    "customRules": [
+      { "id": "1", "phrase": "Hello World", "enabled": true }
+    ]
+  }'
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### JSON Response
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```json
+{
+  "success": true,
+  "cleanedText": "World!",
+  "metrics": {
+    "originalWordCount": 8,
+    "cleanedWordCount": 1,
+    "originalCharCount": 44,
+    "cleanedCharCount": 6,
+    "wordsRemoved": 7,
+    "charsRemoved": 38,
+    "reductionPercentage": 86.4,
+    "processingTimeMs": 0.4,
+    "timeSavedSeconds": 2
+  }
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ☁️ Deploying to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+This application is built for seamless 1-click deployment on Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push your code to GitHub:
+   ```bash
+   git push -u origin main
+   ```
+2. Go to **[Vercel Dashboard](https://vercel.com/new)** and import `Adiptify/Text_Sanitizer`.
+3. Select **Next.js** as the framework preset.
+4. Click **Deploy**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+No database configuration or environment variables required!
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Distributed under the MIT License. See `LICENSE` for details.
